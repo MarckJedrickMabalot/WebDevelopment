@@ -56,239 +56,224 @@
       </div>
     </div>
 
-    <div class="row" id="boss-list"></div>
+    <div class="row" id="parent">
+
+    </div>
 
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
 
   <script>
+    var bosses = [
+      {
+        id: 1,
+        name: "King Slime",
+        stage: "Pre-Hardmode",
+        summon: "Slime Crown",
+        drops: ["Slimy Saddle", "Royal Gel"],
+        image: "assets/images/bosses/King_Slime.gif",
+        bg: "#1a3a7a",
+        color: "#ffd54a",
+        border: "#5aa9ff"
+      }, {
+        id: 2,
+        name: "Eye of Cthulhu",
+        stage: "Pre-Hardmode",
+        summon: "Suspicious Looking Eye",
+        drops: ["Shield of Cthulhu", "Demonite or Crimtane Ore"],
+        image: "assets/images/bosses/Eye_of_Cthulhu.gif",
+        bg: "#3b0f14",
+        color: "#ff8a80",
+        border: "#c0392b"
+      }, {
+        id: 3,
+        name: "Eater of Worlds",
+        stage: "Pre-Hardmode",
+        summon: "Worm Food",
+        drops: ["Shadow Scale", "Demonite Ore"],
+        image: "assets/images/bosses/Eater_of_Worlds.webp",
+        bg: "#2a1a3d",
+        color: "#b78bf0",
+        border: "#6b3fa0"
+      }, {
+        id: 4,
+        name: "Brain of Cthulhu",
+        stage: "Pre-Hardmode",
+        summon: "Bloody Spine",
+        drops: ["Tissue Sample", "Crimtane Ore"],
+        image: "assets/images/bosses/Brain_of_Cthulhu.gif",
+        bg: "#4a1520",
+        color: "#ff9aa8",
+        border: "#c2364f"
+      }, {
+        id: 5,
+        name: "Queen Bee",
+        stage: "Pre-Hardmode",
+        summon: "Abeemination",
+        drops: ["Bee Gun", "Bee Keeper"],
+        image: "assets/images/bosses/Queen_Bee.gif",
+        bg: "#3d2f00",
+        color: "#ffd400",
+        border: "#e0a800"
+      }, {
+        id: 6,
+        name: "Skeletron",
+        stage: "Pre-Hardmode",
+        summon: "Curse the old man",
+        drops: ["Bone Glove", "Book of Skulls"],
+        image: "assets/images/bosses/Skeletron.png",
+        bg: "#2b2b2b",
+        color: "#e8dcc0",
+        border: "#bfb08a"
+      }, {
+        id: 7,
+        name: "Deerclops",
+        stage: "Pre-Hardmode",
+        summon: "Deer Thing",
+        drops: ["Bone Helm", "Eye Spring"],
+        image: "assets/images/bosses/Deerclops.gif",
+        bg: "#1f2a36",
+        color: "#b8d8f0",
+        border: "#7fa7c4"
+      }, {
+        id: 8,
+        name: "Wall of Flesh",
+        stage: "Pre-Hardmode",
+        summon: "Guide Voodoo Doll in Underworld lava",
+        drops: ["Pwnhammer", "Laser Rifle"],
+        image: "assets/images/bosses/Wall_of_Flesh.gif",
+        bg: "#4a1a1a",
+        color: "#ff7f6b",
+        border: "#b02e2e"
+      }, {
+        id: 9,
+        name: "Queen Slime",
+        stage: "Hardmode",
+        summon: "Gelatin Crystal",
+        drops: ["Crystal Assassin Armor", "Volatile Gelatin"],
+        image: "assets/images/bosses/Queen_Slime.webp",
+        bg: "#3a2a5e",
+        color: "#ffb3e6",
+        border: "#8fd3ff"
+      }, {
+        id: 10,
+        name: "The Twins",
+        stage: "Hardmode",
+        summon: "Mechanical Eye",
+        drops: ["Soul of Sight", "Hallowed Bar"],
+        image: "assets/images/bosses/Twins.gif",
+        bg: "#22262e",
+        color: "#7dffb0",
+        border: "#ff5a5a"
+      }, {
+        id: 11,
+        name: "The Destroyer",
+        stage: "Hardmode",
+        summon: "Mechanical Worm",
+        drops: ["Soul of Might", "Hallowed Bar"],
+        image: "assets/images/bosses/The_Destroyer.webp",
+        bg: "#2b2f36",
+        color: "#ff5252",
+        border: "#9aa3ad"
+      }, {
+        id: 12,
+        name: "Skeletron Prime",
+        stage: "Hardmode",
+        summon: "Mechanical Skull",
+        drops: ["Soul of Fright", "Hallowed Bar"],
+        image: "assets/images/bosses/Skeletron_Prime_head.gif",
+        bg: "#2e2f36",
+        color: "#d7dbe0",
+        border: "#e0b13a"
+      }, {
+        id: 13,
+        name: "Plantera",
+        stage: "Hardmode",
+        summon: "Break a Plantera's Bulb",
+        drops: ["Temple Key", "Venus Magnum"],
+        image: "assets/images/bosses/Plantera.gif",
+        bg: "#14361f",
+        color: "#ff8fd0",
+        border: "#5fd35f"
+      }, {
+        id: 14,
+        name: "Golem",
+        stage: "Hardmode",
+        summon: "Lihzahrd Power Cell on the Lihzahrd Altar",
+        drops: ["Sun Stone", "Stynger"],
+        image: "assets/images/bosses/Golem.webp",
+        bg: "#3b2a12",
+        color: "#ffb347",
+        border: "#8a5a1f"
+      }, {
+        id: 15,
+        name: "Duke Fishron",
+        stage: "Hardmode",
+        summon: "Truffle Worm",
+        drops: ["Flairon", "Tempest Staff"],
+        image: "assets/images/bosses/Duke_Fishron.gif",
+        bg: "#0f3a45",
+        color: "#6fe3d6",
+        border: "#2bb5a8"
+      }, {
+        id: 16,
+        name: "Empress of Light",
+        stage: "Hardmode",
+        summon: "Kill a Prismatic Lacewing",
+        drops: ["Terraprisma", "Kaleidoscope"],
+        image: "assets/images/bosses/Empress_of_Light.gif",
+        bg: "#1b1440",
+        color: "#ffe66d",
+        border: "#ff7ad9"
+      }, {
+        id: 17,
+        name: "Lunatic Cultist",
+        stage: "Hardmode",
+        summon: "Kill Lunatic Devotees",
+        drops: ["Ancient Cultist Trophy"],
+        image: "assets/images/bosses/Lunatic_Cultist.gif",
+        bg: "#14204a",
+        color: "#8fb4ff",
+        border: "#e6e6e6"
+      }, {
+        id: 18,
+        name: "Moon Lord",
+        stage: "Hardmode",
+        summon: "Celestial Sigil",
+        drops: ["Star Wrath", "Meowmere"],
+        image: "assets/images/bosses/Moon_Lord.gif",
+        bg: "#1a2e2a",
+        color: "#9ff5d0",
+        border: "#55d6a8"
+      }
+    ]
 
-    const data = {
-      "bosses": [
-        {
-          "id": 1,
-          "name": "King Slime",
-          "stage": "Pre-Hardmode",
-          "summon": "Slime Crown",
-          "drop": "Slimy Saddle, Royal Gel",
-          "image": "assets/images/bosses/King_Slime.gif",
-          "bg": "#1a3a7a",
-          "color": "#ffd54a",
-          "border": "#5aa9ff"
-        },
-        {
-          "id": 2,
-          "name": "Eye of Cthulhu",
-          "stage": "Pre-Hardmode",
-          "summon": "Suspicious Looking Eye",
-          "drop": "Shield of Cthulhu",
-          "image": "assets/images/bosses/Eye_of_Cthulhu.gif",
-          "bg": "#3b0f14",
-          "color": "#ff8a80",
-          "border": "#c0392b"
-        },
-        {
-          "id": 3,
-          "name": "Eater of Worlds",
-          "stage": "Pre-Hardmode",
-          "summon": "Worm Food",
-          "drop": "Shadow Scale",
-          "image": "assets/images/bosses/Eater_of_Worlds.webp",
-          "bg": "#2a1a3d",
-          "color": "#b78bf0",
-          "border": "#6b3fa0"
-        },
-        {
-          "id": 4,
-          "name": "Brain of Cthulhu",
-          "stage": "Pre-Hardmode",
-          "summon": "Bloody Spine",
-          "drop": "Tissue Sample",
-          "image": "assets/images/bosses/Brain_of_Cthulhu.gif",
-          "bg": "#4a1520",
-          "color": "#ff9aa8",
-          "border": "#c2364f"
-        },
-        {
-          "id": 5,
-          "name": "Queen Bee",
-          "stage": "Pre-Hardmode",
-          "summon": "Abeemination",
-          "drop": "Bee Gun",
-          "image": "assets/images/bosses/Queen_Bee.gif",
-          "bg": "#3d2f00",
-          "color": "#ffd400",
-          "border": "#e0a800"
-        },
-        {
-          "id": 6,
-          "name": "Skeletron",
-          "stage": "Pre-Hardmode",
-          "summon": "Curse the old man",
-          "drop": "Bone Glove",
-          "image": "assets/images/bosses/Skeletron.png",
-          "bg": "#2b2b2b",
-          "color": "#e8dcc0",
-          "border": "#bfb08a"
-        },
-        {
-          "id": 7,
-          "name": "Deerclops",
-          "stage": "Pre-Hardmode",
-          "summon": "Deer Thing",
-          "drop": "Bone Helm",
-          "image": "assets/images/bosses/Deerclops.gif",
-          "bg": "#1f2a36",
-          "color": "#b8d8f0",
-          "border": "#7fa7c4"
-        },
-        {
-          "id": 8,
-          "name": "Wall of Flesh",
-          "stage": "Pre-Hardmode",
-          "summon": "Guide Voodoo Doll in Underworld lava",
-          "drop": "Pwnhammer",
-          "image": "assets/images/bosses/Wall_of_Flesh.gif",
-          "bg": "#4a1a1a",
-          "color": "#ff7f6b",
-          "border": "#b02e2e"
-        },
-        {
-          "id": 9,
-          "name": "Queen Slime",
-          "stage": "Hardmode",
-          "summon": "Gelatin Crystal",
-          "drop": "Crystal Assassin Armor",
-          "image": "assets/images/bosses/Queen_Slime.webp",
-          "bg": "#3a2a5e",
-          "color": "#ffb3e6",
-          "border": "#8fd3ff"
-        },
-        {
-          "id": 10,
-          "name": "The Twins",
-          "stage": "Hardmode",
-          "summon": "Mechanical Eye",
-          "drop": "Soul of Sight",
-          "image": "assets/images/bosses/Twins.gif",
-          "bg": "#22262e",
-          "color": "#7dffb0",
-          "border": "#ff5a5a"
-        },
-        {
-          "id": 11,
-          "name": "The Destroyer",
-          "stage": "Hardmode",
-          "summon": "Mechanical Worm",
-          "drop": "Soul of Might",
-          "image": "assets/images/bosses/The_Destroyer.webp",
-          "bg": "#2b2f36",
-          "color": "#ff5252",
-          "border": "#9aa3ad"
-        },
-        {
-          "id": 12,
-          "name": "Skeletron Prime",
-          "stage": "Hardmode",
-          "summon": "Mechanical Skull",
-          "drop": "Soul of Fright",
-          "image": "assets/images/bosses/Skeletron_Prime_head.gif",
-          "bg": "#2e2f36",
-          "color": "#d7dbe0",
-          "border": "#e0b13a"
-        },
-        {
-          "id": 13,
-          "name": "Plantera",
-          "stage": "Hardmode",
-          "summon": "Break a Plantera's Bulb",
-          "drop": "Temple Key",
-          "image": "assets/images/bosses/Plantera.gif",
-          "bg": "#14361f",
-          "color": "#ff8fd0",
-          "border": "#5fd35f"
-        },
-        {
-          "id": 14,
-          "name": "Golem",
-          "stage": "Hardmode",
-          "summon": "Lihzahrd Power Cell on the Lihzahrd Altar",
-          "drop": "Sun Stone",
-          "image": "assets/images/bosses/Golem.webp",
-          "bg": "#3b2a12",
-          "color": "#ffb347",
-          "border": "#8a5a1f"
-        },
-        {
-          "id": 15,
-          "name": "Duke Fishron",
-          "stage": "Hardmode",
-          "summon": "Truffle Worm",
-          "drop": "Flairon",
-          "image": "assets/images/bosses/Duke_Fishron.gif",
-          "bg": "#0f3a45",
-          "color": "#6fe3d6",
-          "border": "#2bb5a8"
-        },
-        {
-          "id": 16,
-          "name": "Empress of Light",
-          "stage": "Hardmode",
-          "summon": "Kill a Prismatic Lacewing",
-          "drop": "Terraprisma",
-          "image": "assets/images/bosses/Empress_of_Light.gif",
-          "bg": "#1b1440",
-          "color": "#ffe66d",
-          "border": "#ff7ad9"
-        },
-        {
-          "id": 17,
-          "name": "Lunatic Cultist",
-          "stage": "Hardmode",
-          "summon": "Kill Lunatic Devotees",
-          "drop": "Ancient Cultist Trophy",
-          "image": "assets/images/bosses/Lunatic_Cultist.gif",
-          "bg": "#14204a",
-          "color": "#8fb4ff",
-          "border": "#e6e6e6"
-        },
-        {
-          "id": 18,
-          "name": "Moon Lord",
-          "stage": "Hardmode",
-          "summon": "Celestial Sigil",
-          "drop": "Star Wrath",
-          "image": "assets/images/bosses/Moon_Lord.gif",
-          "bg": "#1a2e2a",
-          "color": "#9ff5d0",
-          "border": "#55d6a8"
-        }
-      ]
-    };
+    var parent = document.getElementById("parent");
 
-    let output = "";
+    for (var i = 0; i < bosses.length; i++) {
 
-    for (let i = 0; i < data.bosses.length; i++) {
-      let boss = data.bosses[i];
+      var dropList = "";
+      for (var j = 0; j < bosses[i].drops.length; j++) {
+        dropList += `<li>` + bosses[i].drops[j] + `</li>`;
+      }
 
-      output += `
+      parent.innerHTML += `
         <div class="col-12 col-sm-6 col-lg-4 p-2">
-          <div class="card p-4 h-100" style="background-color: ${boss.bg}; border-color: ${boss.border};">
-            <img src="${boss.image}" class="img-fluid" alt="${boss.name}">
-            <h5 class="fw-bold" style="color: ${boss.color};">${boss.id}. ${boss.name}</h5>
-            <p class="mb-3"><span class="badge" style="background-color: ${boss.color}; color: ${boss.bg};">${boss.stage}</span></p>
-            <p class="mb-2"><strong style="color: ${boss.color};">Summon:</strong> ${boss.summon}</p>
-            <p class="mb-0"><strong style="color: ${boss.color};">Notable Drops:</strong> ${boss.drop}</p>
+          <div class="card p-4 h-100" style="background-color: ` + bosses[i].bg + `; border-color: ` + bosses[i].border + `;">
+            <img src="` + bosses[i].image + `" class="img-fluid" alt="` + bosses[i].name + `">
+            <h5 class="fw-bold" style="color: ` + bosses[i].color + `;">` + bosses[i].id + ". " + bosses[i].name + `</h5>
+            <p class="mb-3"><span class="badge" style="background-color: ` + bosses[i].color + `; color: ` + bosses[i].bg + `;">` + bosses[i].stage + `</span></p>
+            <p class="mb-2"><strong style="color: ` + bosses[i].color + `;">Summon:</strong> ` + bosses[i].summon + `</p>
+            <strong style="color: ` + bosses[i].color + `;">Notable Drops:</strong>
+            <ul class="list-unstyled mb-0">` + dropList + `</ul>
           </div>
         </div>
       `;
     }
-
-    document.getElementById("boss-list").innerHTML = output;
   </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-    crossorigin="anonymous"></script>
 </body>
 
 </html>
