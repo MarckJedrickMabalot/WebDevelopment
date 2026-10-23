@@ -34,8 +34,8 @@ body { background: var(--ink); color: var(--text); font-family: 'Barlow', sans-s
 
 .dossier { background: var(--paper); color: #2a2a2a; border-bottom: 10px solid var(--paper-dk); padding: 1.5rem; }
 .dossier #name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: clamp(2.2rem, 4.5vw, 3.4rem); line-height: 1; margin: 0; }
-.bust-wrap { height: 340px; display: flex; align-items: flex-end; justify-content: center; }
-.bust { max-height: 100%; max-width: 100%; object-fit: contain; }
+.bust-wrap { display: flex; align-items: flex-end; justify-content: center; }
+.bust { max-height: 340px; max-width: 100%; object-fit: contain; }
 .mug { width: 100%; max-width: 260px; border: 3px solid #333; background: #bbb; }
 .trait { display: inline-block; border: 2px solid #2a2a2a; padding: .1rem .6rem; margin: 0 .4rem .4rem 0;
   font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.15rem; }
@@ -62,7 +62,7 @@ body { background: var(--ink); color: var(--text); font-family: 'Barlow', sans-s
   .chip { flex: 0 0 auto; white-space: nowrap; padding: .4rem .9rem; }
   .dossier { padding: 1rem; }
   .dossier #name { font-size: 2.4rem; }
-  .bust-wrap { height: 240px; }
+  .bust { max-height: 240px; }
   .mug { display: block; max-width: 170px; margin: 0 auto 1rem; }
   .info .value { overflow-wrap: anywhere; }
 }
