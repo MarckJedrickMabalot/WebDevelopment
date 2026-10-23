@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SDN Dispatch Dossier</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0b2123; --teal: #123d40; --mint: #5fd8bd; --paper: #f1e7d0;
+      --paper-dk: #d9c9a5; --amber: #e8a33d; --text: #d6efe9;
+    }
+    body { background: var(--ink); color: var(--text); font-family: 'Barlow', sans-serif; }
+    .display-font { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: .02em; }
+
+    #intro { min-height: 100vh; position: relative; overflow: hidden; display: flex; flex-direction: column;
+      justify-content: center; background: radial-gradient(circle at 70% 40%, var(--teal), var(--ink) 70%); }
+    #intro::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px); }
+    .ping { position: absolute; right: 12%; top: 30%; width: 14px; height: 14px; border-radius: 50%; background: var(--amber); }
+    .ping::before, .ping::after { content: ""; position: absolute; inset: 0; border-radius: 50%;
+      border: 2px solid var(--amber); animation: ping 3s ease-out infinite; }
+    .ping::after { animation-delay: 1.5s; }
+    @keyframes ping { from { transform: scale(1); opacity: .9; } to { transform: scale(22); opacity: 0; } }
+    .logo { font-size: clamp(4rem, 15vw, 11rem); line-height: .85; color: var(--paper); margin: 0;
+      animation: flicker 4s steps(1) 1.2s 1; }
+    @keyframes flicker { 0%,8%,12%,100% { opacity: 1; } 9%,11% { opacity: .2; } 10% { opacity: .7; } }
+    .typed { display: inline-block; overflow: hidden; white-space: nowrap; width: 0; border-right: 3px solid var(--mint);
+      font-size: clamp(1.2rem, 3.5vw, 2rem); color: var(--mint); animation: type 2.2s steps(26) .6s forwards, caret .6s step-end infinite; }
+    @keyframes type { to { width: 26ch; } }
+    @keyframes caret { 50% { border-color: transparent; } }
+    #about { max-width: 640px; line-height: 1.6; opacity: 0; animation: show .8s 2.8s forwards; }
+    .go { opacity: 0; animation: show .8s 3.2s forwards; }
+    @keyframes show { to { opacity: 1; } }
+    .ticker { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; background: var(--amber); color: var(--ink);
+      overflow: hidden; white-space: nowrap; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; padding: .35rem 0; }
+    .ticker span { display: inline-block; padding-left: 100%; animation: scroll 28s linear infinite; }
+    @keyframes scroll { to { transform: translateX(-100%); } }
+    .btn-sdn { background: var(--mint); color: var(--ink); font-weight: 600; border-radius: 0; padding: .7rem 1.6rem; }
+    .btn-sdn:hover { background: var(--paper); color: var(--ink); }
+
+    .terminal { background: var(--teal); border: 2px solid var(--mint); }
+    .chip { background: transparent; color: var(--mint); border: 1px solid var(--mint); padding: .2rem .7rem; margin: 0 .3rem .4rem 0; font-size: .9rem; }
+    .chip:hover { background: var(--mint); color: var(--ink); }
+
+    .dossier { background: var(--paper); color: #2a2a2a; border-bottom: 10px solid var(--paper-dk); padding: 1.5rem; }
+    .dossier h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: clamp(2.6rem, 8vw, 4.5rem); line-height: 1; margin: 0; }
+    .bust { max-height: 340px; max-width: 100%; object-fit: contain; }
+    .mug { width: 100%; max-width: 260px; border: 3px solid #333; background: #bbb; }
+    .trait { display: inline-block; border: 2px solid #2a2a2a; padding: .1rem .6rem; margin: 0 .4rem .4rem 0;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.15rem; }
+    dl.info dt { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.1rem; margin-top: .6rem; }
+    dl.info dd { margin: 0; }
+    .statbox { background: var(--paper); color: #2a2a2a; padding: 1rem; }
+    .statbox svg { width: 100%; max-width: 320px; display: block; margin: 0 auto; }
+    .statrow { display: flex; justify-content: space-between; border-bottom: 1px solid var(--paper-dk); font-weight: 500; }
+    .err { border-left: 5px solid var(--amber); padding: .8rem 1rem; background: var(--teal); }
+    footer { color: #7fa9a1; font-size: .85rem; }
+    footer a { color: var(--mint); }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: .01s !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <section id="intro">
+    <div class="ping" aria-hidden="true"></div>
+    <div class="container position-relative" style="z-index:1">
+      <h1 class="logo display-font">DISPATCH</h1>
+      <div class="typed mt-3">Superhero Dispatch Network</div>
+      <p id="about" class="mt-4 fs-5">
+        <span class="spinner-border spinner-border-sm" role="status"></span> Connecting to SDN...
+      </p>
+      <a href="#search" class="btn btn-sdn go mt-2">Open the dossier terminal</a>
+    </div>
+    <div class="ticker" aria-hidden="true">
+      <span>INCOMING CALL: break-in at a donut shop &nbsp;///&nbsp; Z-Team roster loading &nbsp;///&nbsp;
+        Robert Robertson reporting for his first shift &nbsp;///&nbsp; Who do you send?
+        &nbsp;///&nbsp; Search a hero below to pull their file</span>
+    </div>
+  </section>
+
+  <div class="container py-5" id="search">
+    <div class="terminal p-4 mb-4">
+      <div class="display-font fs-3 mb-2">Hero database</div>
+      <div class="d-flex flex-row">
+        <input type="text" placeholder="Hero name or alias, e.g. Invisigal" class="form-control rounded-start-pill"
+          id="searchInput" autocomplete="off">
+        <button class="btn btn-sdn rounded-end-pill" onclick="getCharacter()">Search</button>
+      </div>
+      <div class="mt-3" id="roster"></div>
+    </div>
+
+    <div id="result"></div>
+
+    <footer class="mt-5 pb-4">
+      Character data from the <a href="https://dispatch.wiki.gg" target="_blank">Dispatch Wiki</a> (CC BY-SA 4.0)
+      via the MediaWiki API. Intro text from the Wikipedia REST API. Dispatch is made by AdHoc Studio; this is a
+      fan project for a class.
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script>
+    const WIKI = 'https://dispatch.wiki.gg';
+    const API = WIKI + '/api.php';
+    const STATS = [['Combat', 'CBT'], ['Vigor', 'VIG'], ['Mobility', 'MOB'], ['Charisma', 'CHA'], ['Intellect', 'INT']];
+
+    var elSearch = document.getElementById('searchInput');
+    var elResult = document.getElementById('result');
+    var elAbout = document.getElementById('about');
+    var elRoster = document.getElementById('roster');
+
+    elSearch.addEventListener('keydown', (e) => { if (e.key === 'Enter') getCharacter(); });
+
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    const loadIntro = async () => {
+      try {
+        const response = await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/Dispatch_(video_game)');
+        const data = await response.json();
+        elAbout.textContent = data.extract;
+      } catch (e) {
+        elAbout.textContent = 'Dispatch is a superhero workplace comedy. You play Robert Robertson, a former hero turned dispatcher, sending a team of ex-villains out on calls across Los Angeles.';
+      }
+    };
+
+    const loadRoster = async () => {
+      try {
+        const url = `${API}?action=query&list=categorymembers&cmtitle=Category:Dispatchable_Heroes&cmlimit=50&format=json&origin=*`;
+        const data = await (await fetch(url)).json();
+        elRoster.innerHTML = data.query.categorymembers
+          .map((m) => `<button class="chip" onclick="getCharacter('${esc(m.title).replace(/&#39;/g, "\\'")}')">${esc(m.title)}</button>`)
+          .join('');
+      } catch (e) { /* roster is optional */ }
+    };
+
+    function valueEl(box, label) {
+      const hit = [...box.querySelectorAll('*')].find((el) => el.children.length === 0 && el.textContent.trim().toLowerCase() === label.toLowerCase());
+      if (!hit) return null;
+      return hit.nextElementSibling || (hit.parentElement && hit.parentElement.nextElementSibling);
+    }
+    const val = (box, label) => { const el = valueEl(box, label); return el ? el.textContent.replace(/\s+/g, ' ').trim() : ''; };
+
+    function traits(box) {
+      const el = valueEl(box, 'Keywords');
+      if (!el) return [];
+      return el.innerHTML.split(/<br\s*\/?>/i).map((h) => h.replace(/<[^>]*>/g, '').trim()).filter(Boolean);
+    }
+
+    function statValue(doc, name, abbr) {
+      const a = [...doc.querySelectorAll(`a[href*="Attributes#${name}"]`)].find((x) => /^\d+$/.test(x.textContent.trim()));
+      if (a) return +a.textContent.trim();
+      const b = [...doc.querySelectorAll('a')].find((x) => x.textContent.trim() === abbr);
+      const m = b && b.parentElement.textContent.match(/\d+/);
+      return m ? +m[0] : 0;
+    }
+
+    function radar(vals) {
+      const c = 130, R = 95;
+      const pt = (i, v) => { const a = (-90 + i * 72) * Math.PI / 180; return [c + R * v / 10 * Math.cos(a), c + R * v / 10 * Math.sin(a)]; };
+      const ring = (v) => STATS.map((_, i) => pt(i, v).map((n) => n.toFixed(1)).join(',')).join(' ');
+      const rings = [2, 4, 6, 8, 10].map((v) => `<polygon points="${ring(v)}" fill="none" stroke="#b9a984" stroke-width="1"/>`).join('');
+      const axes = STATS.map((_, i) => `<line x1="${c}" y1="${c}" x2="${pt(i, 10)[0]}" y2="${pt(i, 10)[1]}" stroke="#b9a984"/>`).join('');
+      const shape = `<polygon points="${STATS.map((_, i) => pt(i, vals[i]).map((n) => n.toFixed(1)).join(',')).join(' ')}" fill="rgba(232,163,61,.55)" stroke="#c07d12" stroke-width="2"/>`;
+      const labels = STATS.map((s, i) => { const [x, y] = pt(i, 12.6); return `<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle" font-family="Barlow Condensed" font-weight="700" font-size="15" fill="#2a2a2a">${s[1]}</text>`; }).join('');
+      return `<svg viewBox="0 0 260 260" role="img" aria-label="Stat chart">${rings}${axes}${shape}${labels}</svg>`;
+    }
+
+    function render(title, doc) {
+      const box = doc.querySelector('.druid-container, .infobox, .portable-infobox') || doc;
+      const vals = STATS.map(([n, a]) => statValue(doc, n, a));
+      if (vals.every((v) => v === 0)) return false;
+
+      const aka = val(box, 'Aliases').split(',')[0].trim();
+      const bustEl = box.querySelector('img[src*="Hero_Busts"]') || box.querySelector('img');
+      const bust = bustEl ? new URL(bustEl.getAttribute('src'), WIKI).href : '';
+      const mug = `${WIKI}/images/Mugshot_${title.replace(/ /g, '_')}.png`;
+      const rows = [['Real name', 'Name'], ['Age', 'Age'], ['Height', 'Height'], ['Abilities', 'Abilities'], ['Power', 'Powers'],
+        ['Birthplace', 'Birthplace'], ['Bio', 'Bio'], ['Crimes', 'Crimes'], ['Affiliation', 'Affiliation'], ['Voiced by', 'Voice']]
+        .map(([l, k]) => [l, val(box, k)]).filter((r) => r[1]);
+      const total = vals.reduce((a, b) => a + b, 0);
+
+      elResult.innerHTML = `
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <div class="dossier h-100">
+              <div class="row">
+                <div class="col-md-6 d-flex flex-column justify-content-between">
+                  ${bust ? `<img class="bust mx-auto" src="${esc(bust)}" alt="${esc(title)}" onerror="this.style.display='none'">` : ''}
+                  <div class="mt-3">
+                    <h2>${esc(title)}</h2>
+                    ${aka ? `<div class="display-font fs-4">AKA ${esc(aka)}</div>` : ''}
+                    <div class="mt-2">${traits(box).map((t) => `<span class="trait">${esc(t)}</span>`).join('')}</div>
+                  </div>
+                </div>
+                <div class="col-md-6 mt-4 mt-md-0">
+                  <img class="mug mb-2" src="${esc(mug)}" alt="Mugshot of ${esc(title)}" onerror="this.style.display='none'">
+                  <dl class="info">${rows.map(([l, v]) => `<dt>${esc(l)}</dt><dd>${esc(v)}</dd>`).join('')}</dl>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="statbox h-100">
+              <div class="display-font fs-3">Attributes</div>
+              ${radar(vals)}
+              <div class="mt-3">
+                ${STATS.map(([n], i) => `<div class="statrow"><span>${n}</span><span>${vals[i]}</span></div>`).join('')}
+                <div class="statrow fw-bold"><span>Total</span><span>${total}</span></div>
+              </div>
+              <a class="d-block mt-3" href="${WIKI}/wiki/${encodeURIComponent(title.replace(/ /g, '_'))}" target="_blank">Full file on Dispatch Wiki</a>
+            </div>
+          </div>
+        </div>`;
+      return true;
+    }
+
+    const showMsg = (html) => { elResult.innerHTML = `<div class="err">${html}</div>`; };
+
+    const getCharacter = async (term) => {
+      const q = (term || elSearch.value).trim();
+      if (!q) return;
+      elSearch.value = q;
+      elResult.innerHTML = '<div class="text-center p-5"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+
+      try {
+        const found = await (await fetch(`${API}?action=opensearch&search=${encodeURIComponent(q)}&limit=5&format=json&origin=*`)).json();
+        const title = found[1][0];
+        if (!title) return showMsg(`No file found for "${esc(q)}". Try a hero's name, like Invisigal or Golem.`);
+
+        const page = await (await fetch(`${API}?action=parse&page=${encodeURIComponent(title)}&prop=text&redirects=1&format=json&origin=*`)).json();
+        const doc = new DOMParser().parseFromString(page.parse.text['*'], 'text/html');
+
+        if (!render(page.parse.title, doc)) showMsg(`"${esc(page.parse.title)}" exists on the wiki but has no hero stats. Try one of the heroes above.`);
+      } catch (e) {
+        showMsg('Could not reach the Dispatch Wiki. Check your connection and try again.');
+        console.error(e);
+      }
+    };
+
+    loadIntro();
+    loadRoster();
+  </script>
+</body>
+
+</html>
