@@ -13,10 +13,10 @@
       --ink: #0b2123; --teal: #123d40; --mint: #5fd8bd; --paper: #f1e7d0;
       --paper-dk: #d9c9a5; --amber: #e8a33d; --text: #d6efe9;
     }
-    body { background: var(--ink); color: var(--text); font-family: 'Barlow', sans-serif; }
+    body { background: var(--ink); color: var(--text); font-family: 'Barlow', sans-serif; overflow-x: hidden; }
     .display-font { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: .02em; }
 
-    #intro { min-height: 100vh; position: relative; overflow: hidden; display: flex; flex-direction: column;
+    #intro { min-height: 100vh; min-height: 100svh; padding: 3rem 0 4.5rem; position: relative; overflow: hidden; display: flex; flex-direction: column;
       justify-content: center; background: radial-gradient(circle at 70% 40%, var(--teal), var(--ink) 70%); }
     #intro::after { content: ""; position: absolute; inset: 0; pointer-events: none;
       background: repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px); }
@@ -60,6 +60,29 @@
     .err { border-left: 5px solid var(--amber); padding: .8rem 1rem; background: var(--teal); }
     footer { color: #7fa9a1; font-size: .85rem; }
     footer a { color: var(--mint); }
+    @keyframes ping-sm { from { transform: scale(1); opacity: .9; } to { transform: scale(9); opacity: 0; } }
+
+    @media (max-width: 767.98px) {
+      .ping { right: 10%; top: 10%; }
+      .ping::before, .ping::after { animation-name: ping-sm; }
+      .typed { max-width: 100%; }
+      #about { font-size: 1rem !important; }
+      .go { display: block; width: 100%; max-width: 20rem; text-align: center; }
+      .ticker { font-size: .85rem; }
+
+      .terminal { padding: 1rem !important; }
+      #search .btn-sdn { padding: .5rem 1rem; }
+      #roster { display: flex; flex-wrap: nowrap; overflow-x: auto; padding-bottom: .4rem; -webkit-overflow-scrolling: touch; }
+      .chip { flex: 0 0 auto; white-space: nowrap; padding: .4rem .9rem; }
+
+      .dossier { padding: 1rem; }
+      .dossier h2 { font-size: 2.4rem; }
+      .bust { max-height: 240px; }
+      .mug { display: block; max-width: 170px; margin: 0 auto 1rem; }
+      dl.info dd { overflow-wrap: anywhere; }
+      .statbox svg { max-width: 280px; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       * { animation-duration: .01s !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; }
     }
@@ -88,7 +111,7 @@
     <div class="terminal p-4 mb-4">
       <div class="display-font fs-3 mb-2">Hero database</div>
       <div class="d-flex flex-row">
-        <input type="text" placeholder="Hero name or alias, e.g. Invisigal" class="form-control rounded-start-pill"
+        <input type="text" placeholder="Hero name, e.g. Invisigal" class="form-control rounded-start-pill"
           id="searchInput" autocomplete="off">
         <button class="btn btn-sdn rounded-end-pill" onclick="getCharacter()">Search</button>
       </div>
@@ -176,7 +199,7 @@
     function render(title, doc) {
       const box = doc.querySelector('.druid-container, .infobox, .portable-infobox') || doc;
       const vals = STATS.map(([n, a]) => statValue(doc, n, a));
-      if (vals.every((v) => v === 0)) return false;
+      if (vals.every((v) => v === 0)) return false; // not a hero page
 
       const aka = val(box, 'Aliases').split(',')[0].trim();
       const bustEl = box.querySelector('img[src*="Hero_Busts"]') || box.querySelector('img');
